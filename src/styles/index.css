@@ -1,0 +1,58 @@
+/* body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+input {
+  max-width: 500px;
+}
+
+.gray {
+  color: #828282;
+}
+
+.orange {
+  background-color: #ff6600;
+}
+
+.background-gray {
+  background-color: rgb(246,246,239);
+}
+
+.f11 {
+  font-size: 11px;
+}
+
+.button {
+  max-width: 250px;
+  margin: 6px 0;
+} */
+
+body {
+  background: black;
+}
+
+.background-gray {
+  background-color: rgb(246,246,239);
+}
+
+.material-icons {
+  font-size: 0.75rem;
+}
+
+.center {
+  margin-right: auto;
+  margin-left: auto;
+}
+.w85 {
+  width: 27.1%;
+}
+.ph3 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.pv1 {
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+}
