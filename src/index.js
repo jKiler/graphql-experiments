@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker'
 
 import { ApolloClient, HttpLink, InMemoryCache, ApolloLink } from 'apollo-boost'
-import { ApolloProvider } from "react-apollo";
+import { ApolloProvider } from 'react-apollo'
 
 import App from './components/App'
 import { AUTH_TOKEN } from './constants'

@@ -4,9 +4,10 @@ import { withRouter } from 'react-router'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { AUTH_TOKEN } from '../constants'
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles'
 import { Typography, Button } from 'material-ui'
 import Form from './Form'
+import { get } from 'lodash'
 
 const styles = theme => ({
   typography: {
@@ -43,7 +44,7 @@ class SignUp extends Component {
     const { email, password, confirmPassword, firstName, lastName } = this.state
     const { classes } = this.props
     return (
-      <Mutation mutation={SIGNUP_MUTATION}>
+      <Mutation mutation={SIGNUP_MUTATION} variables={this.state}>
         {(signupMutation, { error, data }) => {
           return (
             <Fragment>
@@ -75,21 +76,9 @@ class SignUp extends Component {
                 </Form>
               </div>
               <div className={classes.buttonContainer}>
-                <Button 
-                  className={classes.button}
-                  variant='raised'
-                  color='primary'
+                <Button className={classes.button} variant='raised' color='primary'
                   onClick={async (e) => {
-                    const result = await signupMutation({
-                      variables: {
-                        firstName,
-                        lastName,
-                        email,
-                        password,
-                        confirmPassword,
-                      }
-                    })
-                    const { token } = result.data.signup
+                    const token = get(await signupMutation(), 'signup.token')
                     this._saveUserData(token)
                     this.props.history.push('/')                   
                   }}

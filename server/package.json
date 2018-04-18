@@ -13,7 +13,7 @@
   "dependencies": {
     "apollo-errors": "^1.7.1",
     "bcryptjs": "^2.4.3",
-    "graphql-yoga": "^1.7.1",
+    "graphql-yoga": "^1.8.5",
     "jsonwebtoken": "^8.2.0",
     "prisma-binding": "^1.5.16"
   }

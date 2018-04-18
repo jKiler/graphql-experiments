@@ -1,6 +1,12 @@
+# import UserOrderByInput from "./generated/prisma.graphql"
+
 type Query {
-  info: String!
-  feed: [User!]!
+  feed(filter: String, skip: Int, first: Int, orderBy: UserOrderByInput): Feed!
+}
+
+type Feed {
+  users: [User!]!
+  count: Int!
 }
 
 type Mutation {

@@ -7,6 +7,7 @@ import { AUTH_TOKEN } from '../constants'
 import { withStyles } from 'material-ui/styles';
 import { Typography, Button } from 'material-ui'
 import Form from './Form'
+import { get } from 'lodash'
 
 const styles = theme => ({
   typography: {
@@ -40,7 +41,7 @@ class Login extends Component {
     const { email, password } = this.state
     const { classes } = this.props
     return (
-      <Mutation mutation={LOGIN_MUTATION}>
+      <Mutation mutation={LOGIN_MUTATION} variables={this.state}>
         {(loginMutation, { error, data }) => (
           <Fragment>
             <Typography className={classes.typography} variant='headline' gutterBottom color='primary'>
@@ -50,25 +51,19 @@ class Login extends Component {
               Login below to get access to the content of this site
             </Typography>
             <div className={classes.container}>
-              <Form error={error} field={email} fieldString='email' onChange={(e) => this.setState({ email: e.target.value })}>
+              <Form error={error} field={email} fieldString='email' type='email' onChange={(e) => this.setState({ email: e.target.value })}>
                 Email
               </Form>
             </div>
             <div className={classes.container}>
-              <Form error={error} field={password} fieldString='password' onChange={(e) => this.setState({ password: e.target.value })}>
+              <Form error={error} field={password} fieldString='password' type='password' onChange={(e) => this.setState({ password: e.target.value })}>
                 Password
               </Form>
             </div>
             <div className={classes.buttonContainer}>
               <Button className={classes.button} variant='raised' color='primary'
                 onClick={async (e) => {
-                  const result = await loginMutation({
-                    variables: {
-                      email,
-                      password,
-                    }
-                  })
-                  const { token } = result.data.login
+                  const token = get(await loginMutation(), 'login.token')
                   this._saveUserData(token)
                   this.props.history.push('/')
                 }}

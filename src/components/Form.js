@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { FormControl, FormHelperText, Input, InputLabel } from 'material-ui'
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles'
 
 const styles = theme => ({
   formControl: {

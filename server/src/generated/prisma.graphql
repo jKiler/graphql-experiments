@@ -40,8 +40,8 @@ type Mutation {
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteUser(where: UserWhereUniqueInput!): User
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
-  deleteManyUsers(where: UserWhereInput!): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -89,7 +89,8 @@ type Query {
   """
   Fetches an object given its ID
   """
-  node("""
+  node(
+  """
   The ID of an object
   """
   id: ID!): Node

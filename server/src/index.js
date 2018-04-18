@@ -3,11 +3,13 @@ const { Prisma } = require('prisma-binding')
 const { formatError } = require('apollo-errors')
 
 const Query = require('./resolvers/Query')
+const Feed = require('./resolvers/Feed')
 const Mutation = require('./resolvers/Mutation')
 const AuthPayload = require('./resolvers/AuthPayload')
 
 const resolvers = {
   Query,
+  Feed,
   Mutation,
   AuthPayload
 }
