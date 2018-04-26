@@ -2,8 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
-import { AUTH_TOKEN } from '../constants'
+import { AUTH_TOKEN, LOGIN_MUTATION } from '../constants'
 import { withStyles } from 'material-ui/styles';
 import { Typography, Button } from 'material-ui'
 import Form from './Form'
@@ -51,12 +50,12 @@ class Login extends Component {
               Login below to get access to the content of this site
             </Typography>
             <div className={classes.container}>
-              <Form error={error} field={email} fieldString='email' type='email' onChange={(e) => this.setState({ email: e.target.value })}>
+              <Form error={error} value={email} id='email' type='email' onChange={this._handleChange}>
                 Email
               </Form>
             </div>
             <div className={classes.container}>
-              <Form error={error} field={password} fieldString='password' type='password' onChange={(e) => this.setState({ password: e.target.value })}>
+              <Form error={error} value={password} id='password' type='password' onChange={this._handleChange}>
                 Password
               </Form>
             </div>
@@ -83,14 +82,12 @@ class Login extends Component {
   _saveUserData = (token) => {
     localStorage.setItem(AUTH_TOKEN, token)
   }
-}
 
-const LOGIN_MUTATION = gql`
-  mutation loginMutation($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      token
-    }
+  _handleChange = (e) => {
+    const id = e.target.id
+    const value = e.target.value
+    this.setState({ [id]: value })
   }
-`
+}
 
 export default withStyles(styles)(withRouter(Login))

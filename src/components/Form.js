@@ -14,49 +14,31 @@ const styles = theme => ({
 
 class Form extends Component {
   render () {
-    const { classes, field, fieldString, error, children, onChange, type } = this.props
-    const isError = this._handleError(error, fieldString)
+    const { classes, value, id, error, children, onChange, type } = this.props
+    const isError = this._handleError(error, id)
     return (
-      <FormControl 
-        error={isError}
-        className={classes.formControl} 
-        aria-describedby={`${fieldString}-text`}
-      >
-        <InputLabel 
-          htmlFor={fieldString}
-        >
+      <FormControl error={isError} className={classes.formControl} aria-describedby={`${id}-text`}>
+        <InputLabel htmlFor={id}>
           {children}
         </InputLabel>
-        <Input 
-          id={fieldString} 
-          value={field} 
-          type={type} 
-          onChange={onChange}
-        />
-        <FormHelperText 
-          className={classes.formHelperText} 
-          id={`${fieldString}-text`}
-        >
+        <Input id={id} value={value} type={type} onChange={onChange} />
+        <FormHelperText className={classes.formHelperText} id={`${id}-text`}>
           {isError ? (
             <Fragment>
               <i className='material-icons'>error_outline</i>
               &nbsp;&nbsp;
-              {error.graphQLErrors[0].data[fieldString]}
+              {error.graphQLErrors[0].data[id]}
             </Fragment>
-          ) : ''}
+          ) : null}
         </FormHelperText>
       </FormControl>
     )
   }
 
-  _handleError = (error, field) => {
+  _handleError = (error, value) => {
     if (error) {
       const keys = Object.keys(error.graphQLErrors[0].data)
-      if (keys.includes(field)) {
-        return true
-      } else {
-        return false
-      }
+      return keys.includes(value) ? true : false
     }
   }
 }

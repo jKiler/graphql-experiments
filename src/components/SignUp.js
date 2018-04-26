@@ -2,8 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
-import { AUTH_TOKEN } from '../constants'
+import { AUTH_TOKEN, SIGNUP_MUTATION } from '../constants'
 import { withStyles } from 'material-ui/styles'
 import { Typography, Button } from 'material-ui'
 import Form from './Form'
@@ -55,23 +54,23 @@ class SignUp extends Component {
                 Sign up below to create an account
               </Typography>
               <div className={classes.container}>
-                <Form error={error} field={firstName} fieldString='firstName' type='text' onChange={(e) => this.setState({ firstName: e.target.value })}>
+                <Form error={error} value={firstName} id='firstName' type='text' onChange={this._handleChange}>
                   First name
                 </Form>
-                <Form error={error} field={lastName} fieldString='lastName' type='text' onChange={(e) => this.setState({ lastName: e.target.value })}>
+                <Form error={error} value={lastName} id='lastName' type='text' onChange={this._handleChange}>
                   Last name
                 </Form>
               </div>
               <div className={classes.container}>
-                <Form error={error} field={email} fieldString='email' type='email' onChange={(e) => this.setState({ email: e.target.value })}>
+                <Form error={error} value={email} id='email' type='email' onChange={this._handleChange}>
                   Email
                 </Form>
               </div>
               <div className={classes.container}>
-                <Form error={error} field={password} fieldString='password' type='password' onChange={(e) => this.setState({ password: e.target.value })}>
+                <Form error={error} value={password} id='password' type='password' onChange={this._handleChange}>
                   Password
                 </Form>
-                <Form error={error} field={confirmPassword} fieldString='confirmPassword' type='password' onChange={(e) => this.setState({ confirmPassword: e.target.value })}>
+                <Form error={error} value={confirmPassword} id='confirmPassword' type='password' onChange={this._handleChange}>
                   Confirm password
                 </Form>
               </div>
@@ -99,14 +98,12 @@ class SignUp extends Component {
   _saveUserData = (token) => {
     localStorage.setItem(AUTH_TOKEN, token)
   }
-}
 
-const SIGNUP_MUTATION = gql`
-  mutation signupMutation($email: String!, $password: String!, $confirmPassword: String!, $firstName: String!, $lastName: String!) {
-    signup(email: $email, password: $password, confirmPassword: $confirmPassword, firstName: $firstName, lastName: $lastName) {
-      token
-    }
+  _handleChange = (e) => {
+    const id = e.target.id
+    const value = e.target.value
+    this.setState({ [id]: value })
   }
-`
+}
 
 export default withStyles(styles)(withRouter(SignUp))
