@@ -15,6 +15,7 @@
     "bcryptjs": "^2.4.3",
     "graphql-yoga": "^1.8.5",
     "jsonwebtoken": "^8.2.0",
-    "prisma-binding": "^1.5.16"
+    "prisma-binding": "^1.5.16",
+    "validator": "^10.0.0"
   }
 }

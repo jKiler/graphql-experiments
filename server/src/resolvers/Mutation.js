@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { APP_SECRET, getUserId } = require('../utils')
 const ValidationError = require('./ValidationError')
+const validator = require('validator')
 
 // function post(parent, args, context, info) {
 //   const userId = getUserId(context)

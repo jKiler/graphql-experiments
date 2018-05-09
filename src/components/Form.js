@@ -14,33 +14,35 @@ const styles = theme => ({
 
 class Form extends Component {
   render () {
-    const { classes, value, id, error, children, onChange, type } = this.props
+    const { classes, id, error, children, ...props } = this.props
     const isError = this._handleError(error, id)
     return (
-      <FormControl error={isError} className={classes.formControl} aria-describedby={`${id}-text`}>
+      <FormControl error={isError} className={classes.formControl}>
         <InputLabel htmlFor={id}>
           {children}
         </InputLabel>
-        <Input id={id} value={value} type={type} onChange={onChange} />
+        <Input id={id} {...props} />
         <FormHelperText className={classes.formHelperText} id={`${id}-text`}>
-          {isError ? (
-            <Fragment>
-              <i className='material-icons'>error_outline</i>
-              &nbsp;&nbsp;
-              {error.graphQLErrors[0].data[id]}
-            </Fragment>
-          ) : null}
+          {isError ? this._errorTextFor(error, id) : null}
         </FormHelperText>
       </FormControl>
     )
   }
 
-  _handleError = (error, value) => {
+  _handleError = (error, id) => {
     if (error) {
       const keys = Object.keys(error.graphQLErrors[0].data)
-      return keys.includes(value) ? true : false
+      return keys.includes(id) ? true : false
     }
   }
+
+  _errorTextFor = (error, id) => (
+    <Fragment>
+      <i className='material-icons'>error_outline</i>
+      &nbsp;&nbsp;
+      {error.graphQLErrors[0].data[id]}
+    </Fragment>
+  )
 }
 
 export default withStyles(styles)(Form)
